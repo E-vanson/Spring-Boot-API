@@ -1,19 +1,21 @@
 package com.example.springboot.Student;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
 
+@Service
 public class StudentService {
+    @Autowired
+    private final StudentRepository studentRepository;
+
+    public StudentService(StudentRepository studentRepository){
+        this.studentRepository=studentRepository;
+    }
     public List<Student> getStudent(){
-        return List.of(
-                new Student(
-                        1L,
-                        "Somebody",
-                        LocalDate.of(2000, Month.JULY,28),
-                        "somebody@gmail.com",
-                        22
-                )
-        );
+        return studentRepository.findAll();
     }
 }
